@@ -1,0 +1,68 @@
+<div id="funcionalidad06" data-role="view" data-title="Home View" data-layout="main" data-model="app.funcionalidad06" data-show="app.funcionalidad06.onShow" data-after-show="app.funcionalidad06.afterShow">
+    <!-- START_CUSTOM_CODE_funcionalidad06 -->
+    <!-- Add custom code here. For more information about custom code, see http://docs.telerik.com/platform/screenbuilder/troubleshooting/how-to-keep-custom-code-changes -->
+    <div id="controlesMapa" class="list-group" style="display:none;">
+        <div class="list-group-item font-cuerpo row">
+            <span class="color_1 col-xs-4"><b>Despachador: </b></span>
+            <span class=" col-xs-8">
+                    <input id="txtIdDespachadorF06" style="width:100% !important;"/>
+                </span>
+        </div>
+        <div class="list-group-item font-cuerpo row">
+            <span class="color_1 col-xs-4">
+                <b>Desde:</b>
+            </span>
+            <span class="col-xs-8">
+                <input id="f06Desde" name="f06Desde" type="datetime-local" class="form-control" onchange="" min="1900-01-01" max="9999-01-01">
+            </span>
+        </div>
+        <div class="list-group-item font-cuerpo row">
+            <span class="color_1 col-xs-4">
+                <b>Hasta:</b>
+            </span>
+            <span class="col-xs-8">
+                <input id="f06Hasta" name="f06Hasta" type="datetime-local" class="form-control" onchange="" min="1900-01-01" max="9999-01-01">
+            </span>
+        </div>
+        <div class="list-group-item font-cuerpo row">
+            <span class="col-xs-6">
+                <button id="f06cargarPuntos" type="button" onClick="cargaPosAlmacenesDespachador();" class="btn btn-default btn-block font-boton b_color_1 tex_boton_2" style="width:100%;">
+                    CONSULTAR
+                </button>                
+            </span>
+            <span class="col-xs-6">
+                <button type="button" onClick="resetParametros();" class="btn btn-default btn-block font-boton b_color_2 tex_boton_2" style="width:100%;">
+                    LIMPIAR
+                </button>
+            </span>
+        </div>
+    </div>
+    <table class="f6-info" width="100%">
+        <tr>
+            <td width="85%">
+                DESPACHADOR:&nbsp;</DESPACHADOR:br> <b id="nombreDespachador">N/A</b>
+            </td>
+            <td rowspan="2">
+                <button type="button" onClick="opcionesCargaMapa();" class="btn btn-success glyphicon glyphicon-cog">
+                </button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                ULTIMA UBICACION:&nbsp;<b id="ultimaUbicacionYHora">N/A</b>
+            </td>
+        </tr>
+    </table>
+    <div id="map" style="width:100%;"></div>
+    <!-- END_CUSTOM_CODE_funcionalidad06 -->
+</div>
+<div data-role="modalview" id="funcionalidad06PopUp" style="width: 60%;border-radius: 5px;">
+    <div style="margin: 5px;">No se han encontrado ubicaciones
+        <br>
+        <br>Verificar filtros</div>
+    <div data-role="footer" align="center" style="background-color: white;">
+        <button style="width: 60%;" type="button" class="form-control btn-defaultfont-boton b_color_2 tex_boton_2" onclick="$('#funcionalidad06PopUp').data('kendoMobileModalView').close();">
+            Cerrar
+        </button>
+    </div>
+</div>

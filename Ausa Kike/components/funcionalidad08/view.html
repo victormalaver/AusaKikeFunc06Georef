@@ -1,0 +1,77 @@
+<style>
+    .filtroSOL {
+        width: 100%;
+        margin: 5px 0;
+    }
+    .filtroSOL .fila {
+        height: 40px;
+    }
+    .filtroSOL .campo,
+    .filtroSOL .etiqueta,
+    .filtroSOL .buscar {
+        height: 30px;
+    }
+    .campo, .etiqueta {
+        padding: 15px 10px;
+    }
+</style>
+<!-- Inicio Alertas -->
+<div id="listadoAlertas" data-role="view" data-title="Alertas SOL" data-layout="main" data-model="app.funcionalidad08" data-show="CargaAlertas" data-after-show="app.funcionalidad08.afterShow">
+    <div id="grillaSOL">
+    </div>
+</div>
+<!-- Fin Alertas -->
+<!-- DETALLE -->
+<div id="detalleAlertas" data-role="view" data-title="Alertas SOL" data-model="app.funcionalidad08" data-show="JsonDetalle">
+    <div data-role="navbar">
+        <span data-role="view-title"></span>
+        <!--         <a data-role="button" data-align="right" onclick="GoBackMorosidadUtilizacionLinea();"><span class="k-icon k-i-undo"></span></a> -->
+        <a data-role="backbutton" data-align="right"><span class="k-icon k-i-undo"></span></a>
+    </div>
+    
+    <div id="cuerpoDatos">
+        <div class="filtroSOL">
+            <form onsubmit="return false" role="form">
+                <div class="fila">
+                    <div class="col-xs-4">
+                        <label class="etiqueta" for="fechaInicio">F. Inicio</label>
+                    </div>
+                    <div class="col-xs-8">
+                        <input class="campo form-control" type="datetime-local" name="fechaInicio" id="fechaInicio" required value="2014-01-02T11:42:13.510">
+                    </div>
+                </div>
+                <div class="fila">
+                    <div class="col-xs-4">
+                        <label class="etiqueta" for="fechaFin">F. Fin</label>
+                    </div>
+                    <div class="col-xs-8">
+                        <input class="campo form-control" type="datetime-local" name="fechaFin" id="fechaFin" required value="2016-02-16T01:01">
+                    </div>
+                </div>
+                <div class="fila">
+                    <div class="col-xs-4">
+                        <label class="etiqueta" for="bitEliminado">Estado</label>
+                    </div>
+                    <div class="col-xs-8">
+                        <input name="bitEliminado" id="bitEliminado">
+                    </div>
+                </div>
+                <input type="hidden" id="bitId" name="bitId" value="">
+                <div class="fila">
+                    <div class="col-xs-12">
+                        <button type="button" class="buscar btn btn-default btn-block font-boton b_color_2 tex_boton_2" onclick="llamadaFiltro();"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Buscar</button>
+                    </div>
+                </div>
+                <!--
+                <div id="conso">
+                    Hola
+                </div>
+                <input id="conso2" value="999">
+				-->
+            </form>
+        </div>
+        <div id="grillaSOLDetalle" style="width:300%">
+        </div>
+    </div>
+</div>
+<!-- FIN DETALLE --> 

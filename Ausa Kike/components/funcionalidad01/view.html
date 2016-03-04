@@ -1,0 +1,911 @@
+<div id="ListaClientes" data-role="view" data-title="Lista Clientes" data-layout="main" data-model="app.funcionalidad01" data-after-show="app.funcionalidad01.afterShow">
+    <div class="row contenedorBusqueda">
+        <div class="col-xs-6">
+            <input id="filtroCliente" type="text" placeholder="Nombre Cliente" class="form-control input-md font-cuerpo">
+        </div>
+        <div class="col-xs-6">
+            <button type="button" class="btn btn-default btn-block font-boton b_color_2 tex_boton_2" onclick="cargaPrincipal();"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Buscar</button>
+        </div>
+    </div>
+    <!-- START_CUSTOM_CODE_funcionalidad01 -->
+    <div id="lstCliente" class="container-fluid" style="display:none;"></div>
+    <script type="text/x-kendo-tmpl" id="tmpLstCliente">
+        <div class="row BorderItemLstCliente">
+            <div class="col-xs-12 ItemLstCliente">
+                <b>#:ClienteRazonSocial#</b>
+            </div>
+        </div>
+    </script>
+    <!--
+    NOTA: Si puo intercambiare fra kendoListView e kendoMobileListView
+    ATTENZIONE: kendoMobileListView puo gestire un template specializzato per editing ** editTemplate **
+    Entrambe le opzioni kendoListView e kendoMobileListView suppportano Add di nuovi item
+    La f01 di AUSA richiede uso di kendoMobileListView
+    -->
+    <!-- END_CUSTOM_CODE_funcionalidad01 -->
+</div>
+<div data-role="view" id="det-cliente" data-title="Detalle del Cliente">
+    <div data-role="navbar">
+        <span data-role="view-title"></span>
+        <a data-role="backbutton" data-align="right"><span class="k-icon k-i-undo"></span></a>
+    </div>
+    <!-- ACTUALIZACION CONSULTA CLIENTE START  -->
+    <!-- TODO: DATA HTML HARD CODED, APPLY STYLE CSS CLASES REFACTOR IT  -->
+    <!-- TODO-WIP: FECHA y HORA HARD CODED CONSUME FROM WS  -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <b>ACTUALIZACION CONSULTA CLIENTE</b>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-3"><b>FECHA</b>
+            </div>
+            <div class="col-xs-9"><b id="txtfechareg">dd Mmm aaaa</b>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-3"><b>HORA</b>
+            </div>
+            <div class="col-xs-9"><b id="txthorareg">hh:mm:ss</b>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+    </div>
+    <!-- ACTUALIZACION CONSULTA CLIENTE END  -->
+    <!--  CLIENTE START  -->
+    <!-- TODO: APPLY STYLE CSS CLASES REFACTOR IT  -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-3">
+                <strong>CLIENTE</strong>
+            </div>
+            <div class="col-xs-9">
+                <b id="det-nombre"></b>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+    </div>
+    <!--  CLIENTE END  -->
+    <!--  DETALLE CONTACTOS CLIENTE START  -->
+    <!-- TODO: APPLY STYLE CSS CLASES REFACTOR IT  -->
+    <div id="f01detetalleContacto" class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+        <details>
+            <summary><b>DETALLE CONTACTOS CLIENTE</b>
+            </summary>
+            <div class="row">
+                <div class="col-xs-12">
+                    &nbsp;
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3 MarginTop7">
+                    <b>PERSONA:</b>
+                </div>
+                <div class="col-xs-9">
+                    <b>
+                        <input id="ContactosCliente" />    
+                    </b>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    &nbsp;
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3 MarginTop7">
+                    <b>TELEFONO:</b>
+                </div>
+                <div class="col-xs-9">
+                    <b>
+                        <input id="TelefonosContactoCliente" />
+                    </b>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <!-- TODO-WIP -->
+                    <br>
+                    <button id="btnLlamar" class="btn btn-success btn-block font-boton tex_boton_2" onclick="MakeCall();"> <span class="fa fa-phone" aria-hidden="true"></span>&nbsp&nbsp&nbsp LLAMAR</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    &nbsp;
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3">
+                    <b>EMAIL:</b>
+                </div>
+                <div class="col-xs-9">
+                    <b id="MailCli"></b>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3">
+                    <b>CARGO:</b>
+                </div>
+                <div class="col-xs-9">
+                    <b id="CargoCli"></b>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-9">
+                    <b>FECHA DE CUMPLEAÑOS:</b>
+                </div>
+                <div class="col-xs-3">
+                    <b id="FechaCumpleanos">dd mmm</b>
+                </div>
+            </div>
+        </details>
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+    </div>
+    <!--  DETALLE CONTACTOS CLIENTE END HTML  -->
+    <!--  SITUACION DE PAGO START  -->
+    <!-- TODO: APPLY STYLE CSS CLASES REFACTOR IT  -->
+    <div id="f01situacionPago" class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+        <details>
+            <summary><b>SITUACION DE PAGO</b>
+            </summary>
+            <div class="row">
+                <div class="col-xs-12">
+                    &nbsp;
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-9">
+                    <b>PORCENTAJE USO DE LA LINEA</b>
+                </div>
+                <div class="col-xs-3">
+                    <b id="PorcUtilizacionDeLinea">xy.uvz%</b>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    &nbsp;
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <!-- TODO-WIP -->
+                    <button id="btnMorosidadUtilizacionLinea" class="btn btn-default btn-block font-boton b_color_1 tex_boton_2" onclick="GoToDetMorosidadUtilizacionLinea();">Morosidad y Utilizacion de Linea</button>
+                </div>
+            </div>
+        </details>
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+    </div>
+    <!--  SITUACION DE PAGO END  -->
+    <!--  PARTICIPACION DE AUSA START  -->
+    <!-- TODO: APPLY STYLE CSS CLASES REFACTOR IT  -->
+    <div id="f01participacionAusa" class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+        <details>
+            <summary><b>PARTICIPACIÓN DE AUSA.</b>
+            </summary>
+            <div class="row">
+                <div class="col-xs-12">
+                    &nbsp;
+                </div>
+            </div>
+            <!-- TODO-WIP: IMPLEMENTS VISUAL ALERTS  -->
+            <!-- PARTICIPACION CANTIDAD START  -->
+            <div class="row MarginBotton5">
+                <div class="col-xs-12">
+                    <b>PARTICIPACIÓN DESPACHO</b>
+                </div>
+            </div>
+            <div class="row MarginBotton5">
+                <div class="col-xs-7">
+                    - MES VIGENTE
+                </div>
+                <div class="col-xs-3">
+                    <b id="PorcDespachosVigentes">xy.z%</b>
+                </div>
+                <div id="AlertaPorcDespachosVigentes" class="col-xs-1">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </div> 
+            </div>
+            <div class="row MarginBotton5">
+                <div class="col-xs-7">
+                    - CIERRE DEL MES ANTERIOR
+                </div>
+                <div class="col-xs-3">
+                    <b id="PorcDespachosAnterior">xy.z%</b>
+                </div>
+                <div id="AlertaPorcDespachosAnterior" class="col-xs-1">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </div> 
+            </div>
+            <!-- PARTICIPACION CANTIDAD END  -->
+            <div class="row">
+                <div class="col-xs-12">
+                    &nbsp;
+                </div>
+            </div>
+            <!-- PARTICIPACION FOB MONTO START  -->
+            <div class="row MarginBotton5">
+                <div class="col-xs-12">
+                    <b>PARTICIPACIÓN FOB</b>
+                </div>
+            </div>
+            <div class="row  MarginBotton5">
+                <div class="col-xs-7">
+                    - MES VIGENTE
+                </div>
+                <div class="col-xs-3">
+                    <b id="PorcFOBVigente">xy.z%</b>
+                </div>
+                <div id="AlertaPorcFOBVigente" class="col-xs-1">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </div> 
+            </div>
+            <div class="row  MarginBotton5">
+                <div class="col-xs-7">
+                    - CIERRE DEL MES ANTERIOR
+                </div>
+                <div class="col-xs-3">
+                    <b id="PorcFOBAnterior">xy.z%</b>
+                </div>
+                <div id="AlertaPorcFOBAnterior" class="col-xs-1">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </div> 
+            </div>
+            <!-- PARTICIPACION FOB MONTO END  -->
+            <div class="row">
+                <div class="col-xs-12">
+                    &nbsp;
+                </div>
+            </div>
+            <!-- PARTICIPACION CIF MONTO START  -->
+            <div class="row MarginBotton5">
+                <div class="col-xs-12">
+                    <b>PARTICIPACIÓN CIF</b>
+                </div>
+            </div>
+            <div class="row MarginBotton5">
+                <div class="col-xs-7">
+                    - MES VIGENTE
+                </div>
+                <div class="col-xs-3">
+                    <b id="PorcCIFVigente">xy.z%</b>
+                </div>
+                <div id="AlertaPorcCIFVigente" class="col-xs-1">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </div> 
+            </div>
+            <div class="row MarginBotton5">
+                <div class="col-xs-7">
+                    - CIERRE DEL MES ANTERIOR
+                </div>
+                <div class="col-xs-3">
+                    <b id="PorcCIFAnterior">xy.z%</b>
+                </div>
+                <div id="AlertaPorcCIFAnterior" class="col-xs-1">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </div> 
+            </div>
+            <!-- PARTICIPACION CIF MONTO END  -->
+        </details>
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+    </div>
+    <!--  PARTICIPACION DE AUSA END  -->
+    <!--  PARTICIPACION OTRAS AGENCIAS START  -->
+    <!-- TODO: APPLY STYLE CSS CLASES REFACTOR IT  -->
+    <div id="f01participacionOtros" class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+        <details>
+            <summary><b>PARTICIPACIÓN OTRAS AGENCIAS</b>
+            </summary>
+            <div class="row">
+                <div class="col-xs-12">
+                    &nbsp;
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <dl id="ParticipacionOtrasAgencias">
+                        <dd>- Abc (xy.z%) </dd>
+                        <dd>- Def (yz.x%) </dd>
+                        <dd>- Ghi (zx.y%) </dd>
+                    </dl>
+                    <p><b>* al cierre del mes anterior</b>
+                    </p>
+                </div>
+            </div>
+        </details>
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+    </div>
+    <!--  PARTICIPACION OTRAS AGENCIAS END  -->
+    <!--  PARTICIPACION INGRESO POR DESPACHO START  -->
+    <!-- TODO:  APPLY STYLE CSS CLASES REFACTOR IT  -->
+    <div id="f01ingresoPorDespacho" class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+        <details>
+            <summary><b>INGRESO POR DESPACHO (IPD)</b>
+            </summary>
+            <div class="row">
+                <div class="col-xs-12">
+                    &nbsp;
+                </div>
+            </div>
+            <div class="row MarginBotton5">
+                <div class="col-xs-8">
+                    <b>CIERRE MES ANTERIOR</b>
+                </div>
+                <div class="col-xs-3">
+                    <b id="PartDespachoCierreMesAnterior">$xyz.uw</b>
+                </div>
+                <div class="col-xs-1">
+                    &nbsp;
+                </div>
+            </div>
+            <div class="row MarginBotton5">
+                <div class="col-xs-8">
+                    <b>MES VIGENTE</b>
+                </div>
+                <div class="col-xs-3">
+                    <b id="PartDespachoAcumuladoMes">$yzu.wx</b>
+                </div>
+                <div class="col-xs-1">
+                    &nbsp;
+                </div>
+            </div>
+            <div class="row MarginBotton5">
+                <div class="col-xs-8">
+                    <b>PROMEDIO ULTIMOS 3 MESES</b>
+                </div>
+                <div class="col-xs-3">
+                    <b id="PartDespachoAcumuladoTresMeses">$zuw.xy</b>
+                </div>
+                <div class="col-xs-1">
+                    &nbsp;
+                </div>
+            </div>
+        </details>
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+    </div>
+    <!--  PARTICIPACION INGRESO POR DESPACHO END  -->
+    <!--  PARTICIPACION INGRESO ADUANAS START  -->
+    <!-- TODO:  APPLY STYLE CSS CLASES REFACTOR IT  -->
+    <div id="f01ingresoAduanas" class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+        <details>
+            <summary><b>INGRESO ADUANAS</b>
+            </summary>
+            <div class="row">
+                <div class="col-xs-12">
+                    &nbsp;
+                </div>
+            </div>
+            <div class="row MarginBotton5">
+                <div class="col-xs-8">
+                    <b>CIERRE MES ANTERIOR</b>
+                </div>
+                <div class="col-xs-4">
+                    <b id="PartAduanaCierreMesAnterior">$xyz.uw</b>
+                </div>
+            </div>
+            <div class="row MarginBotton5">
+                <div class="col-xs-8">
+                    <b>MES VIGENTE</b>
+                </div>
+                <div class="col-xs-4">
+                    <b id="PartAduanaAcumuladoMes">$yzu.wx</b>
+                </div>
+            </div>
+            <div class="row MarginBotton5">
+                <div class="col-xs-8">
+                    <b>PROMEDIO ULTIMOS 3 MESES</b>
+                </div>
+                <div class="col-xs-4">
+                    <b id="PartAduanaAcumuladoTresMeses">$zuw.xy</b>
+                </div>
+            </div>
+        </details>
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+    </div>
+    <!--  PARTICIPACION INGRESO ADUANAS END  -->
+    <!--  PARTICIPACION CONDICIONES DE PAGO START  -->
+    <!-- TODO:  APPLY STYLE CSS CLASES REFACTOR IT  -->
+    <div id="f01condicionesDePago" class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+        <!-- TODO-WIP:  CHANGE TO MODAL VIEW REFACTOR IT  -->
+        <details>
+            <summary><b>CONDICIONES DE PAGO</b>
+            </summary>
+            <div class="row">
+                <div id="CondicionesDePago" class="col-xs-12">
+                </div>
+            </div>
+            <!-- TODO-WIP:  CHANGE TO MODAL VIEW DIV ALONE MOVED TO THE END  -->
+        </details>
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+    </div>
+    <!--  PARTICIPACION CONDICIONES DE PAGO END  -->
+    <!--  PARTICIPACION TARIFAS START  -->
+    <!-- TODO: APPLY STYLE CSS CLASES REFACTOR IT  -->
+    <!-- TODO-WIP:  CHANGE TO MODAL VIEW REFACTOR IT  -->
+    <div id="f01tarifas" class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+        <details>
+            <summary><b> TARIFAS </b>
+            </summary>
+            <div class="row">
+                <div id="Tarifas" class="col-xs-12">
+                </div>
+            </div>
+            <!-- TODO-WIP:  CHANGE TO MODAL TARIFAS DIV ALONE MOVED TO THE END  -->
+        </details>
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+    </div>
+    <!--  PARTICIPACION TARIFAS END  -->
+    <!--  CANTIDAD DE USOS AOL DEL MES  START  -->
+    <!-- TODO:  APPLY STYLE CSS CLASES REFACTOR IT  -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-10">
+                <strong>CANTIDAD USOS AOL DEL MES: </strong>
+            </div>
+            <div class="col-xs-2">
+                <b id="UsosAOLdelMes"></b>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+    </div>
+    <!--  CANTIDAD DE USOS AOL DEL MES  END  -->
+    <!-- INICIO CAMBIO POP-UP TARIFAS DE MOBILEMODALVIEW A WINDOW DE KENDO POST REUNION 28/XII/2015 -->
+    <!--
+        <div id="ModTarifas">
+            <div id="cuerpoModal" class="form-group" align="center"></div>
+        </div>
+        -->
+    <!-- FIN CAMBIO POP-UP TARIFAS DE MOBILEMODALVIEW A WINDOW DE KENDO 28/XII/2015 -->
+</div>
+<!-- TODO-WIP -->
+<!-- DETALLE  Morosidad y Utilizacion Linea START-->
+<div data-role="view" id="det-MorosidadUtilizacionLinea" data-title="Morosidad y Utilizacion" data-show="app.funcionalidad01.MostraMorosidadUtilizacionLinea">
+    <div data-role="navbar">
+        <span data-role="view-title"></span>
+        <!--         <a data-role="button" data-align="right" onclick="GoBackMorosidadUtilizacionLinea();"><span class="k-icon k-i-undo"></span></a> -->
+        <a data-role="backbutton" data-align="right"><span class="k-icon k-i-undo"></span></a>
+    </div>
+    <!--  CLIENTE RAZON SOCIAL START  -->
+    <!-- TODO: HTML HARD CODED, APPLY STYLE CSS CLASES REFACTOR IT  -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-3">
+                <b>CLIENTE</b>
+            </div>
+            <div class="col-xs-9">
+                <b id="detMULClienteRazonSocial"></b>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+    </div>
+    <!--  CLIENTE RAZON SOCIAL  END  -->
+    <!--  DEUDA VENCIDA START  -->
+    <!-- TODO: HTML HARD CODED,APPLY STYLE CSS CLASES REFACTOR IT  -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-8">
+                DEUDA VENCIDA
+            </div>
+            <div class="col-xs-4">
+                <b id="detMULDeudaVencida"></b>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+    </div>
+    <!--  DEUDA VENCIDA  END  -->
+    <!--  CONDICION PAGO (DIAS) START  -->
+    <!-- TODO: HTML HARD CODED,APPLY STYLE CSS CLASES REFACTOR IT  -->
+    <div class="container-fluid">
+        <!-- TODO-WIP -->
+        <!--  STATUS AUSA START  -->
+        <!-- TODO: APPLY STYLE CSS CLASES REFACTOR IT  -->
+        <div>
+            <div class="row">
+                <div class="col-xs-12">
+                    &nbsp;
+                </div>
+            </div>
+            <details>
+                <summary><b>AUSA ADUANA</b>
+                </summary>
+                <div class="row">
+                    <div class="col-xs-12">
+                        &nbsp;
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-8">
+                        Monto Linea Factura
+                    </div>
+                    <div class="col-xs-4">
+                        <b id="detMULLíneaFacturaAUSA"></b>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-8">
+                        Dias Plazo Factura
+                    </div>
+                    <div class="col-xs-4">
+                        <b id="detMULPlazoFacturaAUSA"></b>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-8">
+                        Monto Línea Letras
+                    </div>
+                    <div class="col-xs-4">
+                        <b id="detMULLíneaLetrasAUSA"></b>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-8">
+                        Dias Plazo Letras
+                    </div>
+                    <div class="col-xs-4">
+                        <b id="detMULPlazoLetrasAUSA"></b>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        &nbsp;
+                    </div>
+                </div>
+            </details>
+            <div class="row">
+                <div class="col-xs-12">
+                    &nbsp;
+                </div>
+            </div>
+        </div>
+        <!--  STATUS AUSA  END  -->
+    </div>
+    <!--  CONDICION PAGO (DIAS)  END  -->
+    <!--  LINEA ASIGNADA START  -->
+    <!-- TODO: HTML HARD CODED,APPLY STYLE CSS CLASES REFACTOR IT  -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-8">
+                LINEA ASIGNADA
+            </div>
+            <div class="col-xs-4">
+                <b id="detMULLíneaAsignada"></b>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+    </div>
+    <!--  LINEA ASIGNADA  END  -->
+    <!--  UTILIZACION ACTUAL START  -->
+    <!-- TODO: HTML HARD CODED,APPLY STYLE CSS CLASES REFACTOR IT  -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-8">
+                UTILIZACION ACTUAL
+            </div>
+            <div class="col-xs-4">
+                <b id="detMULUtilizacionActual"></b>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+    </div>
+    <!--  UTILIZACION ACTUAL  END  -->
+    <!--  DIFERENCIAS DE LINEAS START  -->
+    <!--  DEF:  DIFERENCIAS DE LINEAS = (LINEA ASIGNADA - UTILIZACION ACTUAL) -->
+    <!--  IMPORTANTE: VERIFICA CON RODRIGO AUSA LA DEFINIZIONE NON COMPARE NELLA ACTA ESTERNA DI J.RAMIREZ -->
+    <!-- TODO: HTML HARD CODED,APPLY STYLE CSS CLASES REFACTOR IT  -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-8">
+                DIFERENCIAS DE LINEAS
+            </div>
+            <div class="col-xs-4">
+                <b id="detMULDiferenciaDeLineas"></b>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+    </div>
+    <!--  DIFERENCIAS DE LINEAS  END  -->
+    <!--  PORC. EN USO DE LA LINEA  ACTUAL START  -->
+    <!-- TODO:HTML HARD CODED, APPLY STYLE CSS CLASES REFACTOR IT  -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-8">
+                PORC. EN USO LINEA ACTUAL
+            </div>
+            <div class="col-xs-4">
+                <b id="detMULPorcUtilizacionDeLinea"></b>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+    </div>
+    <!--  PORC. EN USO DE LA LINEA  ACTUAL  END  -->
+    <!--  PROMEDIO USO ULTIMO 6 MESES ($) START  -->
+    <!-- TODO: HTML HARD CODED, APPLY STYLE CSS CLASES REFACTOR IT  -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-8">
+                PROMEDIO USO ULTIMO 6 MESES
+            </div>
+            <div class="col-xs-4">
+                <b id="detMULUsoDeLineaPromedioUltSeisMeses"></b>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+    </div>
+    <!--  PROMEDIO USO ULTIMO 6 MESES ($)  END  -->
+    <!--  PORC. EN USO PROMEDIO USO ULTIMO 6 MESES ($) START  -->
+    <!-- TODO:  APPLY STYLE CSS CLASES REFACTOR IT  -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-8">
+                PORC. EN USO PROMEDIO USO ULTIMO 6 MESES
+            </div>
+            <div class="col-xs-4">
+                <b id="detMULPorcUsoDeLineaPromedioUltSeisMeses"></b>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+    </div>
+    <!--  PORC. EN USO PROMEDIO USO ULTIMO 6 MESES ($)  END  -->
+</div>
+<div data-role="modalview" id="ModTarifas" style="width: 80%;height: 75%;" data-model="addView">
+    <div data-role="header" id="f01HeaderModTarifas">
+        <div data-role="navbar">
+            <span id="ModTarifasServicio"></span>
+            <a data-role="button" data-align="right" onclick="$('#ModTarifas').data('kendoMobileModalView').close();"><span class="fa fa-times"></span></a>
+        </div>
+    </div>
+    <div id="f01activarZoom" data-role="view" data-zoom="true" style="height: 100% !important;">
+        <div data-role="content">
+            <textarea id="ModTarifasObservaciones" class="form-control" readonly style="font-size: 1px !important; width: 100%;"> </textarea>
+        </div>
+    </div>
+</div>
+<div data-role="modalview" id="ModCondPago">
+    <div data-role="header">
+        <div data-role="navbar">
+            <span id="ModServicio"></span>
+        </div>
+    </div>
+    </br>
+    <div class="col-xs-12">
+        <ul class="list-group">
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col-xs-5"><b>Dias Pago</b>
+                    </div>
+                    <div class="col-xs-7">
+                        <b id="ModDiasPago">***Total-Dias-Pago***</b>
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col-xs-5"><b>Hasta Monto</b>
+                    </div>
+                    <div class="col-xs-7">
+                        <b id="ModHastaMonto">***Hasta-Monto***</b>
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col-xs-5"><b>Moneda</b>
+                    </div>
+                    <div class="col-xs-7">
+                        <b id="ModMoneda">***Moneda***</b>
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col-xs-5"><b>Linea Credito</b>
+                    </div>
+                    <div class="col-xs-7">
+                        <b id="ModLineaCredito">***Linea-Credito***</b>
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col-xs-5"><b>Linea Negocio</b>
+                    </div>
+                    <div class="col-xs-7">
+                        <b id="ModLineaNegocio">***Linea-Negocio***</b>
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col-xs-5"><b>Compania</b>
+                    </div>
+                    <div class="col-xs-7">
+                        <b id="ModCompania">***Compania***</b>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <div class="row" align="center">
+            <div class="col-xs-12">
+                <button type="button" class="form-control btn-defaultfont-boton b_color_2 tex_boton_2" onclick="$('#ModCondPago').data('kendoMobileModalView').close();">Cerrar</button>
+            </div>
+        </div>
+        <br>
+    </div>
+</div>
+<!-- DETALLE  Morosidad y Utilizacion Linea END-->

@@ -1,0 +1,70 @@
+<script src="components/funcionalidad03/addVos.js"></script>
+<div data-role="view" id="listaAudios" data-title="Lista Audios" data-model="captureAudioModel">
+    <!--     Send to back -->
+    <div data-role="navbar">
+        <span data-role="view-title"></span>
+        <a data-role="button" data-align="right" href="#accionTarea"><span class="k-icon k-i-undo"></a>
+    </div>
+    <!--     End -->
+    <div class="container">
+        </br>
+        <div class="row">
+            <div class="col-xs-6">
+                <button id="captureAudio" class="btn btn-default btn-block" data-bind="events: {click: capureAudio}"><span class="fa fa-microphone" aria-hidden="true"></span>&nbsp&nbsp&nbsp Grabar Audio</button>
+            </div>
+            <div class="col-xs-6">
+                <button id="btnSendBS" onclick="f03enviarBackend();" class="btn btn-default btn-block" disabled><span class="fa fa-cloud" aria-hidden="true"></span>&nbsp&nbsp&nbsp Guardar</button>
+            </div>
+        </div>
+        </br>
+        <div id="newAudio" class="list-group">
+        </div>
+        <div class="text-muted" style="text-align: center;">
+            <i class="fa fa-trash"></i>: Eliminar &nbsp;&nbsp;
+            <i class="fa fa-play"></i>: Reproducir &nbsp;&nbsp;
+            <i class="fa fa-paper-plane"></i>: Reenviar
+        </div>
+        </br>
+        <div id="f03viewAudios" data-role="listview" style="border-color:transparent;background-color:transparent;">
+            <div class="list-group">
+            </div>
+        </div>
+        </br>
+    </div>
+    <!--     modal confirmación -->
+    <div id="dialogAudio" style="display:none;">
+        <div id="divMensajeConf"></div>
+        <div class="row">
+            <div class="col-xs-6">
+                <button type="button" class="btn btn-default btn-block font-boton" onclick="$('#dialogAudio').data('kendoWindow').close();">Cancelar</button>
+            </div>
+            <div class="col-xs-6">
+                <button id="accionAudio" type="button" class="btn btn-default btn-block font-boton" onclick="">Aceptar</button>
+            </div>
+        </div>
+    </div>
+    <!--     End -->
+</div>
+<!-- Template List Audios -->
+<script type="text/x-kendo-tmpl" id="f03TemLA">
+    #if(archivo.indexOf("telerik") > -1){#
+    <button id="f03div#:idnota#" type="button" class="list-group-item">
+        <a class="btn btn-default btn-xs" onclick="f03deleteAudio(#:idnota#)"><i class="fa fa-trash-o text-muted"></i></a>&nbsp&nbsp&nbsp<i class="fa fa-cloud text-muted"></i> Audio: #:idnota#
+        <tag id="divAccion#:idnota#" type="divIsPlay" align="center"></tag>
+        <span style="float:right">
+        <a class="btn btn-danger btn-xs" onclick="f03reUpload(#:idnota#)"><i class="fa fa-paper-plane"></i></a>
+        <input value="#:archivo#" id="archivo#:idnota#" type="hidden"></input>
+        <a class="btn btn-info btn-xs" onclick="playAudio(#:idnota#)"><i id="iconBtn#:idnota#" type="iconBtn" class="fa fa-play"></i></a>
+    </span>
+    </button>
+    #}else{#
+    <button type="button" class="list-group-item">
+        <a class="btn btn-default btn-xs" onclick="f03deleteAudio(#:idnota#)"><i class="fa fa-trash-o text-muted"></i></a>&nbsp&nbsp&nbsp<i class="fa fa-cloud text-muted"></i> Audio: #:idnota#
+        <tag id="divAccion#:idnota#" type="divIsPlay" align="center"></tag>
+        <span style="float:right">
+        <input value="#:archivo#" id="archivo#:idnota#" type="hidden"></input>
+        <a class="btn btn-info btn-xs" onclick="playAudio(#:idnota#)"><i id="iconBtn#:idnota#" type="iconBtn" class="fa fa-play"></i></a>
+    </span>
+    </button>
+    #}#
+</script>

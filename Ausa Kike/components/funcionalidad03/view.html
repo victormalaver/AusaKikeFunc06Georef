@@ -1,0 +1,236 @@
+<style>
+    .k-dropdown .k-input,
+    .k-selectbox .k-input {
+        background: #fff;
+    }
+    .form-control.k-widget {
+        padding: 0;
+        background-color: rgba(255, 255, 255, 0);
+        border-color: rgba(255, 255, 255, 0);
+    }
+    .k-textbox>input,
+    .k-autocomplete .k-input,
+    .k-picker-wrap .k-input,
+    .k-numeric-wrap .k-input,
+    .k-dropdown-wrap .k-input,
+    .k-selectbox .k-input {
+        padding: 0.40em 0;
+    }
+    .k-state-default>.k-select {
+        background-color: #fcfcfc;
+    }
+    .row-warning {
+        background-color: #fcf8e3;
+    }
+    .row-danger {
+        background-color: #f2dede;
+    }
+    .row-default {
+        background-color: #fff;
+    }
+    .k-state-selected {
+        background-color: #f35800;
+    }
+</style>
+<div id="tareas1" data-role="view" data-title="Seguimiento Tareas" data-layout="main" data-model="app.funcionalidad03" data-init="getTareas" data-zoom="true">
+    <div class="row contenedorBusqueda">
+        <div class="col-xs-6">
+            <button type="button" class="btn btn-default btn-block font-boton b_color_2 tex_boton_2" onclick="viewFormTarea();"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar</button>
+        </div>
+        <div class="col-xs-6">
+            <button type="button" class="btn btn-default btn-block font-boton b_color_2 tex_boton_2" onclick="adminTT();"> <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Tipos Tareas</button>
+        </div>
+    </div>
+    <div id="tareas" class="font-cuerpo">
+    </div>
+</div>
+<!-- Fin Listado Tareas -->
+<!-- Acción Tipo de Tarea: Add Insert Delete -->
+<div data-role="view" id="vistaTipoTareas" data-title="Tipos de Tarea" data-zoom="true">
+    <div data-role="navbar">
+        <span data-role="view-title"></span>
+        <a data-role="button" data-align="right" href="#tareas1"><span class="k-icon k-i-undo"></a>
+    </div>
+    <div id="administrarTipoTareas" class="font-cuerpo"></div>
+    <div class="row contenedorBusqueda">
+        <div class="col-xs-6">
+            <button type="button" class="btn btn-default btn-block font-boton b_color_2 tex_boton_2" data-role="button" onclick="$('#modalConfirmarDeleteTT').data('kendoMobileModalView').open();"> <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Eliminar</button>
+        </div>
+        <div class="col-xs-6">
+            <button type="button" class="btn btn-default btn-block font-boton b_color_2 tex_boton_2" data-role="button" onclick="accionTT('tipoInsert');"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar</button>
+        </div>
+    </div>
+</div>
+<!-- End -->
+<!-- Template Modal Add y edit Tipo de Tarea-->
+<div data-role="modalview" id="modalAddTipoTarea" style="width: 300px; height: 300px">
+    </br>
+    <form class="col-md-12">
+        <input id="txtidTT" type="hidden" placeholder="tiptar_int_id">
+        <div class="form-group">
+            <label class="control-label font-cuerpo" for="txtnombre">Tipo</label>
+            <div>
+                <input id="txtnombre" type="text" placeholder="Tipo de tarea" class="form-control input-md font-cuerpo" required="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label font-cuerpo" for="txtdescripcion">Descripción</label>
+            <div>
+                <textarea id="txtdescripcion" class="form-control font-cuerpo" rows="5" placeholder="Descripción de tarea"></textarea>
+            </div>
+        </div>
+    </form>
+    <div>
+        <div class="col-xs-6">
+            <button type="button" class="btn btn-default btn-block font-boton b_color_2 tex_boton_2" data-role="button" onclick="$('#modalAddTipoTarea').data('kendoMobileModalView').close();">Cancelar</button>
+        </div>
+        <div class="col-xs-6">
+            <button id="btnTT" value="tipoInsert" type="button" class="btn btn-default btn-block font-boton b_color_2 tex_boton_2" data-role="button" onclick="accionTipoTarea(this.value);"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar</button>
+        </div>
+    </div>
+</div>
+<!-- End -->
+<!-- Template Modal Eliminar Tipo de Tarea-->
+<div data-role="modalview" id="modalConfirmarDeleteTT" style="width: 300px; height: 120px">
+    <h2 class="font-cuerpo">¿Realmente desea eliminar los tipos de tarea seleccionados?</h2>
+    </br>
+    <div>
+        <div class="col-xs-6">
+            <button type="button" class="btn btn-default btn-block font-boton" onclick="$('#modalConfirmarDeleteTT').data('kendoMobileModalView').close();">Cancelar</button>
+        </div>
+        <div class="col-xs-6">
+            <button id="btnTTdel" type="button" class="btn btn-default btn-block font-boton" onclick="accionTipoTarea('tipoDelete');">Aceptar</button>
+        </div>
+    </div>
+</div>
+<!-- End-->
+<!-- Acción Tarea: Add Insert Delete -->
+<div data-role="view" id="accionTarea" data-title="Tarea" data-zoom="true">
+    <div data-role="navbar">
+        <span data-role="view-title"></span>
+        <a data-role="button" data-align="right" onclick="$('#f03dialogBack').data('kendoWindow').open();"><span class="k-icon k-i-undo"></a>
+    </div>
+    <form class="col-md-12" id="formAdd">
+        <!--Para almacenar el id de la tarea a eliminar o editar-->
+        <input id="txtid" type="hidden" placeholder="txtid">
+        </br>
+        
+        <div class="row">
+            <div class="form-group col-xs-5">
+                <label class="control-label font-cuerpo" for="txtorden">Órden</label>
+                <div>
+                    <input id="txtorden" type="text" placeholder="Órden" class="form-control input-md font-cuerpo" required="">
+                </div>
+            </div>
+            <div class="col-xs-7" align="right">
+                <label class="control-label font-cuerpo" for="txtflimite">Fecha Límite</label>
+                <div>
+                    <input id="txtflimite" type="date" class="form-control input-md font-cuerpo" required="">
+                </div>
+            </div>
+        </div>
+        
+         <div class="form-group" align="left">
+            <label class="control-label font-cuerpo" for="txtidc">Clientes</label>
+            <select id="txtidc" class="font-cuerpo" multiple="multiple">
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label class="control-label font-cuerpo" for="txtidtt">Tipo</label>
+            <div class="input-group">
+                <select id="txtidtt" class="form-control input-md font-cuerpo" required=""></select>
+                <span class="input-group-btn" onclick="accionTT('tipoInsert');">
+                    <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                </button>
+                </span>
+            </div>
+        </div>
+       
+        
+        <div class="form-group">
+            <label class="control-label font-cuerpo" for="txtobserv">Observación</label>
+            <div>
+                <input id="txtobserv" class="form-control input-md font-cuerpo" placeholder="Observación" required="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label font-cuerpo" for="txtdetalle">Detalle</label>
+            <div>
+                <textarea id="txtdetalle" class="form-control font-cuerpo" rows="2" placeholder="Detalle de la tarea"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label font-cuerpo">Prioridad</label>
+            <div class="btn-group btn-group-justified" data-toggle="buttons">
+                <label class="btn btn-success font-cuerpo active" id="txtprioridad1">
+                    <input value="1" type="radio" name="txtprioridad" autocomplete="off" checked><span type="btnCheck" class="glyphicon glyphicon-ok" aria-hidden="true"></span> Baja
+                </label>
+                <label class="btn btn-warning font-cuerpo" id="txtprioridad2">
+                    <input value="2" type="radio" name="txtprioridad" autocomplete="off"> Media
+                </label>
+                <label class="btn btn-danger font-cuerpo" id="txtprioridad3">
+                    <input value="3" type="radio" name="txtprioridad" autocomplete="off"> Alta
+                </label>
+            </div>
+        </div>
+        <div class="row" id="divAudioEstado">
+            <div class="col-xs-6">
+                <label class="control-label font-cuerpo" for="">Grabar</label>
+                <button type="button" id="f03verCaptureView" class="btn btn-default btn-block font-boton b_color_1 tex_boton_2" onclick="kendo.mobile.application.navigate('components/funcionalidad03/captureView.html');"><span class="fa fa-microphone" aria-hidden="true"></span> Nota de Voz</button>
+            </div>
+            <div class="col-xs-6" align="right">
+                <label class="control-label font-cuerpo" for=""></label>
+                <div style="display: table;">
+                    <div style="display: table-cell; vertical-align: middle;" id="tag_estado" class="text-muted font-cuerpo">Pendiente</div>&nbsp&nbsp&nbsp<i id="txtestado" value="1" onclick="tag_estado();" class="fa fa-3x fa-rotate-180 fa-toggle-on text-muted toggler"></i>
+                </div>
+            </div>
+        </div>
+        <tag id="divNotaVoz" class="font-cuerpo"></tag>
+        </br>
+        <div class="text-center" id="divBtnAdd">
+            <button type="button" class="btn btn-default font-boton b_color_2 tex_boton_2" onclick="modalTarea('insert');"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar Nueva Tarea</button>
+        </div>
+        </br>
+    </form>
+    <div id="divBtnAccion">
+        <div class="col-xs-6">
+            <button type="button" class="btn btn-default btn-block font-boton b_color_2 tex_boton_2" onclick="modalTarea('update');"> <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Guardar</button>
+        </div>
+        <div class="col-xs-6">
+            <button type="button" class="btn btn-default btn-block font-boton b_color_2 tex_boton_2" onclick="modalTarea('delete');"> <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Eliminar</button>
+        </div>
+    </div>
+    <!--     modal confirmación -->
+    <div id="f03dialog" style="display:none;">
+        <tag id="f03divMensaje" class="font-cuerpo"></tag>
+        </br>
+        </br>
+        <div class="row">
+            <div class="col-xs-6">
+                <button type="button" class="btn btn-default btn-block font-boton" onclick="$('#f03dialog').data('kendoWindow').close();">Cancelar</button>
+            </div>
+            <div class="col-xs-6">
+                <button id="f03btnAccionModal" type="button" class="btn btn-default btn-block font-boton" onclick="">Aceptar</button>
+            </div>
+        </div>
+    </div>
+    <!--     End -->
+    <!--     modal confirmación regresar al grid -->
+    <div id="f03dialogBack" style="display:none;">
+        <tag>¿Desea regresar al listado de tareas?</tag>
+        </br>
+        </br>
+        <div class="row">
+            <div class="col-xs-6">
+                <button type="button" class="btn btn-default btn-block font-boton" onclick="$('#f03dialogBack').data('kendoWindow').close();">Cancelar</button>
+            </div>
+            <div class="col-xs-6">
+                <!--                 <button id="f03btnAccionModal" type="button" class="btn btn-default btn-block font-boton" href="#tareas1">Aceptar</button> -->
+                <a data-role="button" data-align="right" onclick="$('#f03dialogBack').data('kendoWindow').close();window.location.href='#tareas1';" class="btn btn-default btn-block font-boton">Aceptar</a>
+            </div>
+        </div>
+    </div>
+    <!--     End --> 
+</div>
+<!-- Fin Acción Tarea -->

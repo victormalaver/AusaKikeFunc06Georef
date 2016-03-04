@@ -1,0 +1,82 @@
+<script src="components/funcionalidad05/addFoto.js"></script>
+<div data-role="view" id="f05listaImage" data-title="Fotos" data-model="captureImageModel">
+    <!--     Send to back -->
+    <div data-role="navbar">
+        <span data-role="view-title"></span>
+        <a data-role="button" data-align="right" href="#f05accionOperacion"><span class="k-icon k-i-undo"></a>
+    </div>
+    <!--     End -->
+    <div class="container">
+        </br>
+        <div class="row">
+            <div class="col-xs-6">
+                <button id="captureImage" class="btn btn-default btn-block" data-bind="events: {click: capureImage}"><span class="fa fa-camera" aria-hidden="true"></span>&nbsp&nbsp&nbsp Tomar Foto</button>
+            </div>
+            <div class="col-xs-6">
+                <button id="f05btnSendBS" onclick="f05enviarBackend();" class="btn btn-default btn-block" disabled><span class="fa fa-cloud" aria-hidden="true"></span>&nbsp&nbsp&nbsp Guardar</button>
+            </div>
+        </div>
+        </br>
+        <div id="f05newImage" class="list-group">
+        </div>
+        <div class="container text-muted" style="text-align:center;">
+            <i class="fa fa-trash"></i>: Eliminar &nbsp;&nbsp;
+            <i class="fa fa-eye"></i>: Ver &nbsp;&nbsp;
+            <i class="fa fa-paper-plane"></i>: Reenviar
+        </div>
+        </br>
+        <div id="f05viewImage" data-role="listview" style="border-color:transparent;background-color:transparent;">
+            <div class="list-group">
+            </div>
+        </div>
+        </br>
+    </div>
+    <!--     modal confirmación -->
+    <div id="f05dialogImage" style="display:none;">
+        <div id="f05divMensajeConf"></div>
+        <div class="row">
+            <div class="col-xs-6">
+                <button type="button" class="btn btn-default btn-block font-boton" onclick="$('#f05dialogImage').data('kendoWindow').close();">Cancelar</button>
+            </div>
+            <div class="col-xs-6">
+                <button id="f05accionImage" type="button" class="btn btn-default btn-block font-boton" onclick="">Aceptar</button>
+            </div>
+        </div>
+    </div>
+    <!--     End -->
+    <!--     modal ver imagen -->
+    <!--     <div id="f05dialogImageView" style="display:none;"></div> -->
+    <!--     End -->
+    <div id="f05dialogImageView" style="display:none;">
+        <div id="f05activarZoom" data-role="view" data-zoom="true" style="display:none;">
+            <div data-role="content">
+                <img id="f05imgShow" style="width: 100%;" />
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Template List Audios -->
+<script type="text/x-kendo-tmpl" id="f05TemLI">
+    <!-- Si el Archivo contiene la palabra telerik -->
+    #if(Url.indexOf("telerik") > -1){#
+    <button id="div#:Id#" type="button" class="list-group-item">
+        <a class="btn btn-default btn-xs" onclick="f05deleteImage(#:Id#)"><i class="fa fa-trash-o text-muted"></i></a>&nbsp&nbsp&nbsp<i class="fa fa-cloud text-muted"></i> #:Archivo#
+        <tag id="divAccion#:Id#" type="divIsPlay" align="center"></tag>
+        <span style="float:right">
+        <input value="#:Url#" id="archivo#:Id#" type="hidden"></input>
+        <a class="btn btn-danger btn-xs" onclick="f05reUpload(#:Id#)"><i id="iconBtn#:Id#" type="iconBtn" class="fa fa-paper-plane"></i></a>
+        <a class="btn btn-info btn-xs" onclick="playAudio(#:Id#)"><i id="iconBtn#:Id#" type="iconBtn" class="fa fa-eye"></i></a>
+    </span>
+    </button>
+    <!-- Si el Archivo NO contiene la palabra telerik -->
+    #}else{#
+    <button type="button" class="list-group-item">
+        <a class="btn btn-default btn-xs" onclick="f05deleteImage(#:Id#)"><i class="fa fa-trash-o text-muted"></i></a>&nbsp&nbsp&nbsp<i class="fa fa-cloud text-muted"></i> #:Archivo#
+        <tag id="divAccion#:Id#" type="divIsPlay" align="center"></tag>
+        <span style="float:right">
+        <input value="#:Url#" id="archivo#:Id#" type="hidden"></input>
+        <a class="btn btn-info btn-xs" onclick="playAudio(#:Id#)"><i id="iconBtn#:Id#" type="iconBtn" class="fa fa-eye"></i></a>
+    </span>
+    </button>
+    #}#
+</script>

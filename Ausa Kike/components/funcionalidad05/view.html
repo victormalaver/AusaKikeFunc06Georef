@@ -1,0 +1,141 @@
+<style>
+    .row-alt {
+        background-color: #f4f4f4;
+    }
+    .row-default {
+        background-color: #FFF;
+    }
+    .k-state-selected {
+        background-color: #f35800;
+    }
+</style>
+<div id="f05ContenedorOperaciones" data-role="view" data-title="Seguimiento Oper." data-layout="main" data-model="app.funcionalidad05" data-init="f05FechaAtencionConsilidato" data-zoom="true">
+    <div class="row">
+        <div class="col-xs-6">
+            <span>
+                <button type="button" class="btn btn-default font-boton b_color_2 tex_boton_2" onclick="aumentarFont();">
+                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            </button>
+            </span>
+            <span>
+                <button type="button" class="btn btn-default font-boton b_color_2 tex_boton_2" onclick="disminuirFont();">
+                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+            <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+            </button>
+            </span>
+        </div>
+        <div class="col-xs-6">
+            <input id="f05FchAtencionConsilidato" type="date" style="width:100%" class="form-control" onchange="f05getOperaciones(this.value);" min="1900-01-01" max="9999-01-01">
+        </div>
+    </div>
+    <!-- Listado Operaciones -->
+    <div class="row">
+        <div class="col-xs-12">
+            <div id="f05operaciones" class="font-cuerpo"> </div>
+        </div>
+    </div>
+</div>
+<!-- End -->
+<!-- Acción Tarea: Add Insert Delete -->
+<div data-role="view" id="f05accionOperacion" data-title="Detalle">
+    <div data-role="navbar">
+        <span data-role="view-title"></span>
+        <a data-role="button" data-align="right" href="#f05ContenedorOperaciones"><span class="k-icon k-i-undo"></a>
+    </div> 
+    <!--        BOTONERA -->
+    <div class="container" style="background-color:#fff;">
+        <div class="col-xs-10 col-xs-offset-1">
+            <h3 id="f05Actividad" class="text-center"></h3>
+            <div id="f05divBotonera"></div>
+            </br>
+    		<div id="CapturasIMG">
+    		</div>         
+        </div>
+    </div>
+    <!-- FIN -->
+    <!--DETALLE REASIGNACION TAREA TEST INICIO -->
+    <div class="list-group container">
+        <div class="list-group-item font-cuerpo row">
+            <span class="color_1 col-xs-6"><b>Fecha Creación: </b></span>
+            <span class="col-xs-6" id="f05FechaCreacion"></span>
+        </div>
+        <div class="list-group-item font-cuerpo row">
+            <span class="color_1 col-xs-6"><b>Id Operación: </b></span>
+            <span class="col-xs-6" id="f05NumOperacion"></span>
+        </div>
+        <div class="list-group-item font-cuerpo row">
+            <span class="color_1 col-xs-6"><b>Cliente: </b></span>
+            <span class="col-xs-6" id="f05Cliente"></span>
+        </div>
+        <div class="list-group-item font-cuerpo row">
+            <span class="color_1 col-xs-6"><b>Despachador: </b></span>
+            <span class="col-xs-6" id="f05Despachador"></span>
+        </div>
+        <div class="list-group-item font-cuerpo row">
+            <span class="color_1 col-xs-6"><b>Almacén: </b></span>
+            <span class="col-xs-6" id="f05Almacen"></span>
+        </div>
+        <div class="list-group-item font-cuerpo row">
+            <span class="color_1 col-xs-6"><b>Núm órden: </b></span>
+            <span class="col-xs-6" id="f05Orden"></span>
+        </div>
+        <div class="list-group-item font-cuerpo row">
+            <span class="color_1 col-xs-6"><b>Tipo de Carga: </b></span>
+            <span class="col-xs-6" id="f05TipoCarga"></span>
+        </div>
+        <div class="list-group-item font-cuerpo row">
+            <span class="color_1 col-xs-6"><b>Cantidad: </b></span>
+            <span class="col-xs-6" id="f05Cantidad"></span>
+        </div>
+        <div class="list-group-item font-cuerpo row">
+            <span class="color_1 col-xs-6"><b>Tiempo Transcurrido: </b></span>
+            <span class="col-xs-6" id="f05TiempoTranscurrido"></span>
+        </div>
+        <div class="list-group-item font-cuerpo row">
+            <span class="color_1 col-xs-6"><b>Fecha Inicio: </b></span>
+            <span class="col-xs-6" id="f05FechaInicio"></span>
+        </div>
+        <div class="list-group-item font-cuerpo row">
+            <span class="color_1 col-xs-6"><b>Hora inicio: </b></span>
+            <span class="col-xs-6" id="f05HoraInicio"></span>
+        </div>
+        <div class="list-group-item font-cuerpo row">
+            <span class="color_1 col-xs-6"><b>Hora fin: </b></span>
+            <span class="col-xs-6" id="f05HoraFin"></span>
+        </div>
+        <div class="list-group-item font-cuerpo row">
+            <span class="color_1 col-xs-6"><b>Estado: </b></span>
+            <span class="col-xs-6" id="f05Estado"></span>
+        </div>
+        <div class="list-group-item font-cuerpo row">
+            <span class="color_1 col-xs-6"><b>Detalle: </b></span>
+            <span class="col-xs-6" id="f05Detalle"></span>
+        </div>
+    </div>
+    <!--DETALLE REASIGNACION TAREA TEST FIN -->
+    <!--     Modal confirmación -->
+    <div id="f05dialog" style="display:none;">
+        <div id="cuerpoModal" class="form-group" align="center"></div>
+        <div class="row">
+            <div class="col-xs-6">
+                <button id="btnFuncionFoto05" type="button" class="btn btn-default btn-block font-boton b_color_2 tex_boton_2" onclick="$('#f05dialog').data('kendoWindow').close();">Cancelar</button>
+            </div>
+            <div class="col-xs-6">
+                <button id="btnFuncion05" type="button" class="btn btn-default btn-block font-boton b_color_2 tex_boton_2" onclick="">Aceptar</button>
+            </div>
+        </div>
+    </div>
+    <!--     End -->
+</div>
+<!--End-->
+
+<script id="javascriptTemplate" type="text/x-kendo-template">
+     #if(CaptureF==8){#
+    <button class="btn btn-default btn-block font-boton" id="btnAddFoto" onclick="kendo.mobile.application.navigate('components/funcionalidad05/captureView.html');"> <span class="fa fa-camera" aria-hidden="true"></span> Agregar foto </button>
+    </br>
+    #}if(CaptureD==8){#
+    <button class="btn btn-default btn-block font-boton" id="btnAddDoc" onclick="kendo.mobile.application.navigate('components/funcionalidad07/captureView.html');"> <span class="fa fa-camera" aria-hidden="true"></span> Digitalizar </button>
+    </br>
+    #}#
+</script>

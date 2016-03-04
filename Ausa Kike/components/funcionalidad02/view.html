@@ -1,0 +1,37 @@
+<!-- Inicio formulario -->
+<div id="ListaOrdenes" data-role="view" data-title="Seguimiento de Orden" data-layout="main" data-model="app.funcionalidad06" data-show="app.funcionalidad02.onShow" data-after-show="app.funcionalidad02.afterShow">
+    <div align="center" class="jumbotron" style="background-color:#FFF;">
+        <p style="font-size: 13px !important;font-weight: normal !important;">Indique los datos de la orden que desea hacer seguimiento</p>
+        <div class="input-group col-xs-9">
+            <span class="input-group-addon font-cuerpo">Año de la Orden</span>
+            <input id="f02year" type="number" class="form-control input-lg" placeholder="Año" value="">
+        </div>
+        </br>
+        <div class="input-group col-xs-9">
+            <span class="input-group-addon font-cuerpo">Nro de Orden</span>
+            <input id="f02order" type="number" class="form-control input-lg" placeholder="Orden" onkeypress="return soloNumeros(this);">
+        </div>
+        </br>
+        <!--input id="f02idUsuario" type="number" class="form-control input-lg" placeholder="id usuario" 
+               value="367" onkeyup="getOrden($('#f02year').val(),$('#f02order').val());"-->
+        <button type="button" class="btn btn-warning btn-lg b_color_2 " style="border:#EF7A0D;" onclick="getOrden($('#f02year').val(),$('#f02order').val());"> <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Buscar</button>
+    </div>
+    <!--div id="appendto" class="demo-section k-content"></div-->
+</div>
+<!-- Detalle -->
+<div data-role="view" id="det-orden1" data-title="Seguimiento">
+    <div data-role="navbar">
+        <span data-role="view-title"></span>
+        <a data-role="button" data-align="right" href="#ListaOrdenes"><span class="k-icon k-i-undo"></a>
+    </div>
+    </br>
+    <div class="col-xs-12">
+        <div class="panel panel-primary border_1 font-cuerpo oveflw">
+            <div id="f02regimen" class="panel-heading centrar b_color_1"></div>
+            <div id="f02cabecera" class="panel-body">
+            </div>
+        </div>
+        <div id="f02detalle" class="list-group">
+        </div>
+    </div>
+</div>

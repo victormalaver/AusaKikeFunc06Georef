@@ -1,0 +1,132 @@
+<div id="homeView" data-role="view" data-title="Iniciar Sesión" data-layout="main" data-model="app.homeView" data-show="app.homeView.onShow" data-after-show="app.homeView.afterShow">
+    <!-- START_CUSTOM_CODE_homeView -->
+    <!-- END_CUSTOM_CODE_homeView -->
+    
+    <!-- application views will be rendered here -->
+	</br>
+    <div class="c_grupo_login">
+        <div class="c_login_text">
+            Usuario:
+        </div>
+        <input type="text" id="txtsUsuario" value="storo" style="text-align: center; float: left; width: 50%;" class="form-control input-md font-cuerpo" />
+    </div>
+    
+    <div class="c_grupo_login">
+        <div class="c_login_text">
+            Contraseña:
+        </div>
+    	<input type="password" id="txtsContrasenia" value="st0112ro" style="text-align: center; float: left; width: 50%;" class="form-control input-md font-cuerpo"/>
+    </div>
+    
+    </br>
+	<div class="c_grupo_login">
+        <div class="divBotones" style="margin-right: 5%;"> 
+          <button id="GoLogin" data-role="button" class="km-primary km-widget km-button" style="opacity: 1;" onclick="LoginDS();">
+              <span class="km-text">Iniciar Sesión</span>
+          </button> 
+        </div>
+        <div class="divBotones">
+          <button id="GoClean" data-role="button" class="km-primary km-widget km-button" style="opacity: 1;" onclick="CleanDS();">
+              <span class="km-text">Limpiar</span>
+          </button>  
+        </div>  
+    </div>
+</div>
+
+<div id="AutenticacionOK" data-role="view" data-title="Bienvenido" data-layout="main" >
+    
+    <div style=" widht:100; padding: 10%; text-align: center;" >
+        <img class="logoBase" src="images/logo-vector.png"><br><br><br>
+        <b><span id="NombreUsuario"></span></b>
+    </div>
+    
+    <!--div style="text-align:center;widht:100%;color:red;">TEST CORDOVA 4.0.0</div-->
+    
+<!--     <div class="container-fluid" style="display:none;"> -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12" style="text-align:center;widht:100%;color:red;">
+                LOG GET CURRENT POSITION <!--TEST = 4.6-->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">&nbsp;</div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12" style="text-align:center;widht:100%;color:blue;">*** Log onSuccess ***</div>
+        </div>        
+        <div class="row">
+            <div class="col-xs-5">
+                COUNT
+            </div>
+            <div id="logWPOnSuccessCOUNT" class="col-xs-7">
+                log. COUNT
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-5">LAT</div>
+            <div id="logWPOnSuccessLAT" class="col-xs-7">log. xyz LAT</div>
+        </div>
+        <div class="row">
+            <div class="col-xs-5">LNG</div>
+            <div id="logWPOnSuccessLNG" class="col-xs-7">log. xyz LNG</div>
+        </div>
+        <div class="row">
+            <div class="col-xs-5">WS ERR MSG</div>
+            <div id="logWPOnSuccessERRMSG" class="col-xs-7">log. WS ERRMSG</div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">&nbsp;</div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12" style="text-align:center;widht:100%;color:blue;">*** Log onError ***</div>
+        </div>
+        <div class="row">
+            <div class="col-xs-5">
+                COUNT
+            </div>
+            <div id="logWatchPositionOnError" class="col-xs-7">
+                log. OnError
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">Error Code and Message</div>
+        </div>
+        <div class="row">
+            <div id="logWPOnErrorCodeMsg" class="col-xs-12">
+                log. Code and Msg
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12" style="text-align:center;widht:100%;color:blue;">*** Log Set Interval ***</div>
+        </div>
+        <div class="row">
+            <div class="col-xs-5">
+                COUNT
+            </div>
+            <div id="logSetIntCOUNT" class="col-xs-7">
+                log. COUNT
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-5">LAT</div>
+            <div id="logSetIntLAT" class="col-xs-7">log. xyz LAT</div>
+        </div>
+        <div class="row">
+            <div class="col-xs-5">LNG</div>
+            <div id="logSetIntLNG" class="col-xs-7">log. xyz LNG</div>
+        </div>
+        <div class="row">
+            <div class="col-xs-5">
+                TIMEOUT
+            </div>
+            <div id="logSetIntTIMEOUT" class="col-xs-7">
+                log. TIMEOUT
+            </div>
+        </div>
+    </div>    
+</div>
+
+<div id="cerrar" data-role="view" data-title="Cerrando Sesión" data-layout="main" data-show="cerrarSesion">
+
+</div>
